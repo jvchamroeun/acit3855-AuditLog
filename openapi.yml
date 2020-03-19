@@ -1,0 +1,103 @@
+swagger: '2.0'
+info:
+  version: '2.0'
+  title: 'Event Statistics'
+  description: 'This is an API detailing a freight booking delivery'
+paths:
+  /audit_bd:
+    get:
+      summary: audits messages for booking details
+      operationId: app.audit_booking_details
+      description: . . . Placeholder . . .
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: offset
+        description: pass a search offset for looking up an event
+        required: true
+        type: integer
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            $ref: '#/definitions/BookingAudit'
+        400:
+          description: bad input parameter
+  /audit_fa:
+    get:
+      summary: audits messages for freight assignments
+      operationId: app.audit_freight_assignments
+      description: . . . Placeholder . . .
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            $ref: '#/definitions/AssignmentAudit'
+        400:
+          description: bad input parameter
+definitions:
+  BookingAudit:
+    type: object
+    required:
+    - customer_id
+    - delivery_id
+    - pickup
+    - destination
+    - delivery_weight_in_pounds
+    - delivery_dimensions_in_feet
+    - timestamp
+    properties:
+      customer_id:
+        type: string
+        example: ahl2020-0000001-henrydrilling
+      delivery_id:
+        type: string
+        example: ahl2020-0000001-vancal
+      pickup:
+        type: string
+        example: Vancouver, BC L6J8N2
+      destination:
+        type: string
+        example: Calgary, AB T1X0L3
+      delivery_weight_in_pounds:
+        type: integer
+        example: 2000
+      delivery_dimensions_in_feet:
+        type: string
+        example: 20 x 20 x 20
+      timestamp:
+        type: string
+        format: date-time
+        example: 2020-01-01T09:00:00:.000Z
+  AssignmentAudit:
+    type: object
+    required:
+    - freight_company
+    - freight_id
+    - freight_type_in_feet
+    - max_weight_in_pounds
+    - freight_load
+    - timestamp
+    properties:
+      freight_company:
+        type: string
+        example: Diamond Delivery
+      freight_id:
+        type: string
+        example: DD2020-000-0001
+      freight_type_in_feet:
+        type: integer
+        example: 48
+      max_weight_in_pounds:
+        type: integer
+        example: 48000
+      freight_load:
+        type: string
+        example: LTL, Less-Than-Truck-Load
+      timestamp:
+        type: string
+        format: date-time
+        example: 2020-01-01T09:00:00:.000Z
